@@ -31,3 +31,10 @@ build/
 
 # Ignore Gradle build directory
 .gradle/
+*.bin
+*.bin
+*.bin
+*.bin
+/.gradle
+/build
+/db
