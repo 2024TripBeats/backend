@@ -123,20 +123,9 @@ public class AuthService {
             e.printStackTrace();
         }
 
-        Long kakaoId = kakaoAccountDto.getId();
-        Account existOwner = accountRepository.findById(kakaoId).orElse(null);
-        if (existOwner != null) {
-            return Account.builder()
-                    .id(kakaoAccountDto.getId())
-                    .email(kakaoAccountDto.getKakao_account().getEmail())
-                    .kakaoName(kakaoAccountDto.getKakao_account().getProfile().getNickname())
-                    .build();
-        } else {
-            return Account.builder()
-                    .id(kakaoAccountDto.getId())
-                    .email(kakaoAccountDto.getKakao_account().getEmail())
-                    .kakaoName(kakaoAccountDto.getKakao_account().getProfile().getNickname())
-                    .build();
-        }
+        return Account.builder()
+                .id(kakaoAccountDto.getId())
+                .kakaoName(kakaoAccountDto.getKakao_account().getProfile().getNickname())
+                .build();
     }
 }

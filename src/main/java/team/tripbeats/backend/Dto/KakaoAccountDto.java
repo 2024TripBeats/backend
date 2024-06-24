@@ -9,7 +9,6 @@ public class KakaoAccountDto {
 
     @Data
     public static class KakaoAccount {
-        private String email;
         private Profile profile;
 
         @Data
