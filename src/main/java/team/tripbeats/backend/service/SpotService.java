@@ -1,7 +1,10 @@
 package team.tripbeats.backend.service;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -16,74 +19,58 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SpotService {
 
     private final SpotRepository spotRepository;
 
     @PostConstruct
     public void init() {
-        String line;
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new ClassPathResource("place.csv").getInputStream()))) {
-            // 헤더 라인 건너뛰기
-            br.readLine();
-
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length < 12) {
-                    System.err.println("Skipping incomplete line: " + line);
-                    continue;
+        String csvFilePath = "src/main/resources/place.csv";
+        try (CSVReader reader = new CSVReader(new FileReader(csvFilePath))) {
+            String[] line;
+            List<Spot> spots = new ArrayList<>();
+            reader.readNext(); // Skip header line
+            while ((line = reader.readNext()) != null) {
+                if (line.length < 12) {
+                    continue; // Skip invalid lines
                 }
-                try {
-                    Spot spot = Spot.builder()
-                            .visitAreaNm(data[0])
-                            .radNmAddr(data[1])
-                            .visitAreaTypeCd(parseIntSafe(data[2]))
-                            .hashtags(data[3])
-                            .time(data[4])
-                            .연락처(data[5])
-                            .주차(data[6])
-                            .동물출입(data[7])
-                            .소개글(data[8])
-                            .lat(parseDoubleSafe(data[9]))
-                            .lng(parseDoubleSafe(data[10]))
-                            .imageUrl(data[11])
-                            .build();
 
-                    spotRepository.save(spot);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error parsing number in line: " + line);
-                    e.printStackTrace();
-                }
+                Spot spot = new Spot();
+                spot.setVisitAreaNm(line[0].trim());
+                spot.setRadNmAddr(line[1].trim());
+                spot.setVisitAreaTypeCd(Integer.parseInt(line[2].trim()));
+                spot.setHashtags(line[3].trim());
+                spot.setTime(line[4].trim());
+                spot.setContact(line[5].trim());
+                spot.setParking(line[6].trim().equals("가능"));
+                spot.setPetAccess(line[7].trim().equals("불가능"));
+                spot.setDescription(line[8].trim());
+                spot.setLatitude(Double.parseDouble(line[9].trim()));
+                spot.setLongitude(Double.parseDouble(line[10].trim()));
+                spot.setImageUrl(line[11].trim().length() > 2048 ? line[11].trim().substring(0, 2048) : line[11].trim());
+
+                spots.add(spot);
             }
+            spotRepository.saveAll(spots);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (CsvValidationException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private int parseIntSafe(String value) {
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            System.err.println("Error parsing integer value: " + value);
-            return 0;
-        }
+    public List<Spot> getAllSpots() {
+        return spotRepository.findAll();
     }
 
-    private double parseDoubleSafe(String value) {
-        try {
-            return Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            System.err.println("Error parsing double value: " + value);
-            return 0.0;
-        }
-    }
-
-    public Optional<Spot> getSpotById(Long id) {
-        return spotRepository.findById(id);
+    public Spot getSpotById(Long id) {
+        return spotRepository.findById(id).orElse(null);
     }
 
     public SpotDto convertSpotToDto(Spot spot) {
@@ -94,12 +81,12 @@ public class SpotService {
                 .visitAreaTypeCd(spot.getVisitAreaTypeCd())
                 .hashtags(spot.getHashtags())
                 .time(spot.getTime())
-                .연락처(spot.get연락처())
-                .주차(spot.get주차())
-                .동물출입(spot.get동물출입())
-                .소개글(spot.get소개글())
-                .lat(spot.getLat())
-                .lng(spot.getLng())
+                .contact(spot.getContact())
+                .parking(spot.isParking())
+                .petAccess(spot.isPetAccess())
+                .description(spot.getDescription())
+                .latitude(spot.getLatitude())
+                .longitude(spot.getLongitude())
                 .imageUrl(spot.getImageUrl())
                 .build();
     }
