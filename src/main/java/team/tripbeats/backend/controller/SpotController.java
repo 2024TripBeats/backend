@@ -27,4 +27,10 @@ public class SpotController {
         Spot spot = spotService.getSpotByVisitAreaNm(visitAreaNm);
         return spot != null ? ResponseEntity.ok(spotService.convertSpotToDto(spot)) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/{visitAreaNm}/image")
+    public ResponseEntity<String> getSpotImageByVisitAreaNm(@PathVariable String visitAreaNm) {
+        Spot spot = spotService.getSpotByVisitAreaNm(visitAreaNm);
+        return spot != null ? ResponseEntity.ok(spot.getImageUrl()) : ResponseEntity.notFound().build();
+    }
 }
