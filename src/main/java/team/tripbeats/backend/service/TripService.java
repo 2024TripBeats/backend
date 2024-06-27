@@ -29,10 +29,16 @@ public class TripService {
         return tripRepository.findById(id);
     }
 
+    public List<Integer> getTripIdsByAccountId(String accountId) {
+        return tripRepository.findByAccountId(accountId).stream()
+                .map(Trip::getId)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Trip saveTrip(TripDto tripDto) {
         Trip trip = Trip.builder()
-                .userId(tripDto.getUserId())
+                .accountId(tripDto.getAccountId())
                 .tripName(tripDto.getTripName())
                 .period(tripDto.getPeriod())
                 .build();
@@ -64,7 +70,7 @@ public class TripService {
 
     public TripDto convertToDto(Trip trip) {
         return TripDto.builder()
-                .userId(trip.getUserId())
+                .accountId(trip.getAccountId())
                 .tripName(trip.getTripName())
                 .period(trip.getPeriod())
                 .tripDays(trip.getTripDays().stream().map(this::convertToDto).collect(Collectors.toList()))

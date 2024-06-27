@@ -12,6 +12,7 @@ import team.tripbeats.backend.Dto.TripDto;
 import team.tripbeats.backend.entity.Trip;
 import team.tripbeats.backend.service.TripService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,5 +33,11 @@ public class TripController {
     public ResponseEntity<TripDto> createTrip(@RequestBody TripDto tripDto) {
         Trip savedTrip = tripService.saveTrip(tripDto);
         return ResponseEntity.ok(tripService.convertToDto(savedTrip));
+    }
+
+    @GetMapping("/account/{accountId}/tripIds")
+    public ResponseEntity<List<Integer>> getTripIdsByAccountId(@PathVariable String accountId) {
+        List<Integer> tripIds = tripService.getTripIdsByAccountId(accountId);
+        return ResponseEntity.ok(tripIds);
     }
 }

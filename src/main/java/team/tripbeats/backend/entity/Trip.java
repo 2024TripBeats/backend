@@ -23,7 +23,7 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String userId;
+    private String accountId;
     private String tripName;
     private Integer period;
 

@@ -19,5 +19,7 @@ public class Music {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
+
     private String url;
 }

@@ -1,7 +1,6 @@
 package team.tripbeats.backend.service;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import team.tripbeats.backend.Dto.SurveyDto;
 import team.tripbeats.backend.entity.Account;
@@ -73,6 +72,37 @@ public class SurveyService {
         account.setMusicTags(musicTags);
         account.setTravelSpots(travelSpots);
 
+        account.setDoneSurvey(true);
+
         return accountRepository.save(account);
+    }
+
+    public SurveyDto convertToDto(Account account) {
+        List<String> musicGenres = account.getMusicGenres().stream()
+                .map(MusicGenre::getName)
+                .collect(Collectors.toList());
+
+        List<String> musicTags = account.getMusicTags().stream()
+                .map(MusicTag::getName)
+                .collect(Collectors.toList());
+
+        List<String> travelSpots = account.getTravelSpots().stream()
+                .map(TravelSpot::getSpotName)
+                .collect(Collectors.toList());
+
+        return SurveyDto.builder()
+                .accountId(account.getId())
+                .email(account.getEmail())
+                .phoneNumber(account.getPhoneNumber())
+                .gender(account.getGender())
+                .age(account.getAge())
+                .distance(account.getDistance())
+                .activityLevel(account.getActivityLevel())
+                .scene(account.getScene())
+                .openness(account.getOpenness())
+                .musicGenres(musicGenres)
+                .musicTags(musicTags)
+                .travelSpots(travelSpots)
+                .build();
     }
 }
