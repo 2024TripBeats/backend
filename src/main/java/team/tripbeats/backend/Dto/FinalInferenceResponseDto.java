@@ -11,42 +11,45 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InferenceResponseDto {
-    private List<DayRecommendationDto> recommendations;
+public class FinalInferenceResponseDto {
+    private List<FinalDayRecommendationDto> recommendations;
 }
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class DayRecommendationDto {
+class FinalDayRecommendationDto {
     private int dayNumber;
-    private List<RecommendationCandidateDto> candidates;
+    private List<FinalRecommendationCandidateDto> candidates;
 }
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class RecommendationCandidateDto {
-    private List<PlaceDto> itinerary;
-    private List<TravelSegmentDto> travelSegments;
+class FinalRecommendationCandidateDto {
+    private List<FinalPlaceMusicPairDto> itinerary;
+    private List<FinalTravelSegmentDto> travelSegments;
 }
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class PlaceDto {
+class FinalPlaceMusicPairDto {
     private String placeId;
     private String placeName;
     private int duration;
+    private String musicId;
+    private String musicName;
+    private String musicUrl;
 }
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class TravelSegmentDto {
+class FinalTravelSegmentDto {
     private float distance;
 }

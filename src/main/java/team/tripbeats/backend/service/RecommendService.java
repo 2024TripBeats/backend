@@ -4,8 +4,11 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import team.tripbeats.backend.Dto.FinalInferenceResponseDto;
+import team.tripbeats.backend.Dto.FinalRecommendationRequestDto;
 import team.tripbeats.backend.Dto.InferenceRequestDto;
 import team.tripbeats.backend.Dto.InferenceResponseDto;
+import team.tripbeats.backend.Dto.RecommendRequestDto;
 import team.tripbeats.backend.entity.Account;
 import team.tripbeats.backend.repository.AccountRepository;
 
@@ -20,8 +23,15 @@ public class RecommendService {
     private final RestTemplate restTemplate;
 
     @Transactional
-    public InferenceResponseDto getRecommendations(Long accountId, String destination, Integer period, List<Integer> intensity, String stopwords, String requirewords) {
-        Account account = accountRepository.findById(accountId)
+    public InferenceResponseDto getRecommendations(RecommendRequestDto recommendRequestDto) {
+        Long accountId = recommendRequestDto.getAccountId();
+        String destination = recommendRequestDto.getDestination();
+        Integer period = recommendRequestDto.getPeriod();
+        List<Integer> intensity = recommendRequestDto.getIntensity();
+        String stopwords = recommendRequestDto.getStopwords();
+        String requirewords = recommendRequestDto.getRequirewords();
+
+            Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid account ID: " + accountId));
 
         InferenceRequestDto requestDto = InferenceRequestDto.builder()
@@ -46,5 +56,26 @@ public class RecommendService {
 
         String inferenceUrl = "http://localhost:8000/recommend";  // 로컬 호스트의 8000번 포트로 설정
         return restTemplate.postForObject(inferenceUrl, requestDto, InferenceResponseDto.class);
+    }
+
+    public FinalInferenceResponseDto getFinalRecommendation(Long accountId, InferenceResponseDto responseDto) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid account ID: " + accountId));
+
+        FinalRecommendationRequestDto finalRequestDto = FinalRecommendationRequestDto.builder()
+                .recommendations(responseDto.getRecommendations())
+                .musicGenres(account.getMusicGenres().stream().map(genre -> genre.getName()).collect(Collectors.toList()))
+                .genreOpenness(account.getGenreOpenness())
+                .musicTags(account.getMusicTags().stream().map(tag -> tag.getName()).collect(Collectors.toList()))
+                .tagOpenness(account.getTagOpenness())
+                .build();
+
+        String finalInferenceUrl = "http://localhost:8001/music_recommend";  // 다른 인퍼런스 서버 URL
+        return restTemplate.postForObject(finalInferenceUrl, finalRequestDto, FinalInferenceResponseDto.class);
+    }
+    @Transactional
+    public FinalInferenceResponseDto getAllFinalRecommendation(RecommendRequestDto recommendRequestDto) {
+        InferenceResponseDto responseDto = getRecommendations(recommendRequestDto);
+        return getFinalRecommendation(recommendRequestDto.getAccountId(), responseDto);
     }
 }

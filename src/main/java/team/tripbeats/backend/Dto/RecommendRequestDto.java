@@ -1,6 +1,5 @@
 package team.tripbeats.backend.Dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +11,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DayRecommendationDto {
-    private int dayNumber;
-    private List<RecommendationCandidateDto> candidates;
+public class RecommendRequestDto {
+    private Long accountId;
+    private String destination;
+    private Integer period;
+    private List<Integer> intensity;
+    private String stopwords;
+    private String requirewords;
 }
