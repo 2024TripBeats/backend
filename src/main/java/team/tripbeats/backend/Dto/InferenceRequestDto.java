@@ -11,21 +11,23 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SurveyDto {
+public class InferenceRequestDto {
     private Long accountId;
-    private String email;
-    private Long phoneNumber;
+    private String destination;
+    private Integer period;
+    private List<Integer> intensity;
+    private String stopwords;
+    private String requirewords;
+
     private String gender;
     private String age;
-
     private String distance;
     private String activityLevel;
     private String scene;
     private int openness;
-
     private List<String> musicGenres;
     private int genreOpenness;
     private List<String> musicTags;
     private int tagOpenness;
-    private List<String> travelSpots;
+    private List<Long> travelSpots;
 }

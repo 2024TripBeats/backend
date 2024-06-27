@@ -43,6 +43,8 @@ public class SurveyService {
         account.setActivityLevel(surveyDto.getActivityLevel());
         account.setScene(surveyDto.getScene());
         account.setOpenness(surveyDto.getOpenness());
+        account.setGenreOpenness(surveyDto.getGenreOpenness());
+        account.setTagOpenness(surveyDto.getTagOpenness());
 
         List<MusicGenre> musicGenres = surveyDto.getMusicGenres().stream()
                 .map(genre -> {
@@ -100,6 +102,8 @@ public class SurveyService {
                 .activityLevel(account.getActivityLevel())
                 .scene(account.getScene())
                 .openness(account.getOpenness())
+                .genreOpenness(account.getGenreOpenness())
+                .tagOpenness(account.getTagOpenness())
                 .musicGenres(musicGenres)
                 .musicTags(musicTags)
                 .travelSpots(travelSpots)
