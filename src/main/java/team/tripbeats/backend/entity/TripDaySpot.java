@@ -24,6 +24,10 @@ public class TripDaySpot {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "music_id")
+    private Music music;
+
+    @ManyToOne
     @JoinColumn(name = "trip_day_id")
     private TripDay tripDay;
 

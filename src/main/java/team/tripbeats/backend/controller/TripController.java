@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import team.tripbeats.backend.Dto.TripDto;
+import team.tripbeats.backend.Dto.TripInputDto;
+import team.tripbeats.backend.Dto.TripOutputDto;
 import team.tripbeats.backend.entity.Trip;
 import team.tripbeats.backend.service.TripService;
 
@@ -23,20 +24,20 @@ public class TripController {
     private final TripService tripService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<TripDto> getTripById(@PathVariable Integer id) {
+    public ResponseEntity<TripOutputDto> getTripById(@PathVariable Integer id) {
         Optional<Trip> trip = tripService.getTripById(id);
         return trip.map(value -> ResponseEntity.ok(tripService.convertToDto(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<TripDto> createTrip(@RequestBody TripDto tripDto) {
-        Trip savedTrip = tripService.saveTrip(tripDto);
+    public ResponseEntity<TripOutputDto> createTrip(@RequestBody TripInputDto tripInputDto) {
+        Trip savedTrip = tripService.saveTrip(tripInputDto);
         return ResponseEntity.ok(tripService.convertToDto(savedTrip));
     }
 
     @GetMapping("/account/{accountId}/tripIds")
-    public ResponseEntity<List<Integer>> getTripIdsByAccountId(@PathVariable String accountId) {
+    public ResponseEntity<List<Integer>> getTripIdsByAccountId(@PathVariable Long accountId) {
         List<Integer> tripIds = tripService.getTripIdsByAccountId(accountId);
         return ResponseEntity.ok(tripIds);
     }

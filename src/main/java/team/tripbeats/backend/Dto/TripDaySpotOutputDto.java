@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpotDto {
-    private Integer id;
-    private String imageUrl;
-    private String placeName;
-    private String location;
-    private String description;
-    private CurationDto curation;
+public class TripDaySpotOutputDto {
+    private Integer spotId;
+    private Integer visitOrder;
+    private MusicDto musicDto; // 출력용 필드
 }

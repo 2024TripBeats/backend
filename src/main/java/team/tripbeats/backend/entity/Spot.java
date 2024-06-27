@@ -27,10 +27,6 @@ public class Spot {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "music_id")
-    private Music music;
-
-    @ManyToOne
     @JoinColumn(name = "curation_id")
     private Curation curation;
 

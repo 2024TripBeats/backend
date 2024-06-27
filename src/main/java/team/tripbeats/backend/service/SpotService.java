@@ -22,12 +22,6 @@ public class SpotService {
     }
 
     public SpotDto convertSpotToDto(Spot spot) {
-        MusicDto musicDto = MusicDto.builder()
-                .id(spot.getMusic().getId())
-                .name(spot.getMusic().getName())
-                .url(spot.getMusic().getUrl())
-                .build();
-
         CurationDto curationDto = CurationDto.builder()
                 .id(spot.getCuration().getId())
                 .name(spot.getCuration().getName())
@@ -40,7 +34,6 @@ public class SpotService {
                 .placeName(spot.getPlaceName())
                 .location(spot.getLocation())
                 .description(spot.getDescription())
-                .music(musicDto)
                 .curation(curationDto)
                 .build();
     }

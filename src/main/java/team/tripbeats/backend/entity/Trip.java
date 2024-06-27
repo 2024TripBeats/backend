@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +25,9 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String accountId;
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account account;
     private String tripName;
     private Integer period;
 

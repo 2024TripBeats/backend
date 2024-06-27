@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TripDayDto {
+public class TripDayOutputDto {
     private int dayNumber;
-    private List<TripDaySpotDto> tripDaySpots;
+    private List<TripDaySpotOutputDto> tripDaySpots;
 }

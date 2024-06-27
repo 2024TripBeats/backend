@@ -5,15 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpotDto {
-    private Integer id;
-    private String imageUrl;
-    private String placeName;
-    private String location;
-    private String description;
-    private CurationDto curation;
+public class TripInputDto {
+    private String accountId;
+    private String tripName;
+    private Integer period;
+    private List<TripDayInputDto> tripDays;
 }
