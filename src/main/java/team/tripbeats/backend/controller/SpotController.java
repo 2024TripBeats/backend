@@ -17,27 +17,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/spots")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SpotController {
 
     private final SpotService spotService;
 
-    @GetMapping
-    public ResponseEntity<List<SpotDto>> getAllSpots() {
-        List<Spot> spots = spotService.getAllSpots();
-        List<SpotDto> spotDtos = spots.stream()
-                .map(spotService::convertSpotToDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(spotDtos);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<SpotDto> getSpotById(@PathVariable Long id) {
-        Spot spot = spotService.getSpotById(id);
-        if (spot != null) {
-            return ResponseEntity.ok(spotService.convertSpotToDto(spot));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/{visitAreaNm}")
+    public ResponseEntity<SpotDto> getSpotByVisitAreaNm(@PathVariable String visitAreaNm) {
+        Spot spot = spotService.getSpotByVisitAreaNm(visitAreaNm);
+        return spot != null ? ResponseEntity.ok(spotService.convertSpotToDto(spot)) : ResponseEntity.notFound().build();
     }
 }

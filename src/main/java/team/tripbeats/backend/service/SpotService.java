@@ -57,6 +57,7 @@ public class SpotService {
 
                 spots.add(spot);
             }
+            spotRepository.deleteAll();
             spotRepository.saveAll(spots);
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,8 +70,8 @@ public class SpotService {
         return spotRepository.findAll();
     }
 
-    public Spot getSpotById(Long id) {
-        return spotRepository.findById(id).orElse(null);
+    public Spot getSpotByVisitAreaNm(String visitAreaNm) {
+        return spotRepository.findByVisitAreaNm(visitAreaNm).orElse(null);
     }
 
     public SpotDto convertSpotToDto(Spot spot) {
