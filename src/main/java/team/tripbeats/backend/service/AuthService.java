@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import team.tripbeats.backend.Dto.KakaoAccountDto;
@@ -56,12 +57,20 @@ public class AuthService {
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 
         RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> accessTokenResponse = rt.exchange(
-                KAKAO_TOKEN_URI,
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
+        ResponseEntity<String> accessTokenResponse;
+        try {
+            accessTokenResponse = rt.exchange(
+                    KAKAO_TOKEN_URI,
+                    HttpMethod.POST,
+                    kakaoTokenRequest,
+                    String.class
+            );
+        } catch (HttpClientErrorException e) {
+            // 에러 로그 출력
+            System.out.println("Error occurred: " + e.getResponseBodyAsString());
+            throw e;
+        }
+
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
@@ -105,12 +114,18 @@ public class AuthService {
 
         HttpEntity<MultiValueMap<String, String>> accountInfoRequest = new HttpEntity<>(headers);
 
-        ResponseEntity<String> accountInfoResponse = rt.exchange(
-                KAKAO_USER_INFO_URI,
-                HttpMethod.POST,
-                accountInfoRequest,
-                String.class
-        );
+        ResponseEntity<String> accountInfoResponse;
+        try {
+            accountInfoResponse = rt.exchange(
+                    KAKAO_USER_INFO_URI,
+                    HttpMethod.POST,
+                    accountInfoRequest,
+                    String.class
+            );
+        } catch (HttpClientErrorException e) {
+            System.out.println("Error occurred while requesting Kakao user info: " + e.getResponseBodyAsString());
+            throw e;
+        }
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
