@@ -43,7 +43,7 @@ class FinalPlaceMusicPairDto {
     private int duration;
     private String musicId;
     private String musicName;
-    private String musicUrl;
+    private String musicArtist;
 }
 
 @Data
