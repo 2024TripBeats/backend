@@ -34,11 +34,11 @@ public class TripService {
     private final MusicRepository musicRepository;
     private final AccountRepository accountRepository;
 
-    public Optional<Trip> getTripById(Integer id) {
+    public Optional<Trip> getTripById(Long id) {
         return tripRepository.findById(id);
     }
 
-    public List<Integer> getTripIdsByAccountId(Long accountId) {
+    public List<Long> getTripIdsByAccountId(Long accountId) {
         return tripRepository.findByAccountId(accountId).stream()
                 .map(Trip::getId)
                 .collect(Collectors.toList());
@@ -86,6 +86,7 @@ public class TripService {
 
     public TripOutputDto convertToDto(Trip trip) {
         return TripOutputDto.builder()
+                .tripId(trip.getId())
                 .accountId(String.valueOf(trip.getAccount().getId()))
                 .tripName(trip.getTripName())
                 .period(trip.getPeriod())

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripDaySpotOutputDto {
-    private Integer spotId;
+    private Long spotId;
     private Integer visitOrder;
     private MusicDto musicDto; // 출력용 필드
 }

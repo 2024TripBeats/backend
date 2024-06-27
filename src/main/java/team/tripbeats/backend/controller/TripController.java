@@ -24,7 +24,7 @@ public class TripController {
     private final TripService tripService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<TripOutputDto> getTripById(@PathVariable Integer id) {
+    public ResponseEntity<TripOutputDto> getTripById(@PathVariable Long id) {
         Optional<Trip> trip = tripService.getTripById(id);
         return trip.map(value -> ResponseEntity.ok(tripService.convertToDto(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -37,8 +37,8 @@ public class TripController {
     }
 
     @GetMapping("/account/{accountId}/tripIds")
-    public ResponseEntity<List<Integer>> getTripIdsByAccountId(@PathVariable Long accountId) {
-        List<Integer> tripIds = tripService.getTripIdsByAccountId(accountId);
+    public ResponseEntity<List<Long>> getTripIdsByAccountId(@PathVariable Long accountId) {
+        List<Long> tripIds = tripService.getTripIdsByAccountId(accountId);
         return ResponseEntity.ok(tripIds);
     }
 }

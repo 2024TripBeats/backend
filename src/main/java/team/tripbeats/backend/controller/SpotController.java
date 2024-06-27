@@ -20,7 +20,7 @@ public class SpotController {
     private final SpotService spotService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpotDto> getSpotById(@PathVariable Integer id) {
+    public ResponseEntity<SpotDto> getSpotById(@PathVariable Long id) {
         Optional<Spot> spot = spotService.getSpotById(id);
         return spot.map(value -> ResponseEntity.ok(spotService.convertSpotToDto(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());

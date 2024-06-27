@@ -17,7 +17,7 @@ public class SpotService {
 
     private final SpotRepository spotRepository;
 
-    public Optional<Spot> getSpotById(Integer id) {
+    public Optional<Spot> getSpotById(Long id) {
         return spotRepository.findById(id);
     }
 

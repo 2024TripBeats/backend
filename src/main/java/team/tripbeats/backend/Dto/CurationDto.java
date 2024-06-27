@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CurationDto {
-    private Integer id;
+    private Long id;
     private String name;
     private String url;
 }

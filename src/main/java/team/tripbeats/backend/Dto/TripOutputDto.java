@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripOutputDto {
+    private Long tripId;
     private String accountId;
     private String tripName;
     private Integer period;
