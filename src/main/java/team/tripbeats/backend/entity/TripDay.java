@@ -1,7 +1,6 @@
 package team.tripbeats.backend.entity;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -21,26 +21,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Spot {
+public class TripDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "music_id")
-    private Music music;
+    @JoinColumn(name = "trip_id")
+    private Trip trip;
 
-    @ManyToOne
-    @JoinColumn(name = "curation_id")
-    private Curation curation;
+    private int dayNumber;
 
-    private String imageUrl;
-    private String placeName;
-    private String location;
-
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
-    @OneToMany(mappedBy = "spot", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tripDay", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TripDaySpot> tripDaySpots;
 }
