@@ -12,6 +12,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import team.tripbeats.backend.entity.Account;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -30,6 +32,8 @@ public class Comment {
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    private LocalDateTime timestamp;  // 댓글 작성 시간, 문자열로 저장
 }
