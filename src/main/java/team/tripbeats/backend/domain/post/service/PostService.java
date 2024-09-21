@@ -44,6 +44,29 @@ public class PostService {
         postRepository.save(post);  // 게시글 저장
     }
 
+    // 게시글 수정
+    public void updatePost(Long postId, PostCreateDto postCreateDto) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+
+        LocalDateTime timestamp = LocalDateTime.now();
+
+        // accountId로 작성자가 동일한지 확인 (옵션)
+        if (!post.getAccount().getId().equals(postCreateDto.getAccountId())) {
+            throw new RuntimeException("Only the author can update the post.");
+        }
+
+        // 게시글 덮어씌우기
+        post.setTitle(postCreateDto.getTitle());
+        post.setContent(postCreateDto.getContent());
+        post.setCategory(postCreateDto.getCategory());
+        post.setLocation(postCreateDto.getLocation());
+        post.setSchedule(postCreateDto.getSchedule());
+        post.setImage(postCreateDto.getImage());
+        post.setTimestamp(timestamp);
+
+        postRepository.save(post);  // 수정된 게시글 저장
+    }
+
     public void deletePost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
         postRepository.delete(post);  // 게시글 삭제, 관련 댓글도 함께 삭제됨 (CascadeType.REMOVE)
