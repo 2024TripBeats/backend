@@ -1,11 +1,13 @@
 package team.tripbeats.backend.domain.post.entity;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -33,6 +35,8 @@ public class Post {
     private String category;   // 카테고리 추가
     private String location;   // 장소 추가
     private String schedule;   // 일정 추가
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String image;      // Base64로 인코딩된 이미지
 
     @ManyToOne
