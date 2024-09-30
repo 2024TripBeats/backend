@@ -1,4 +1,4 @@
-package team.tripbeats.backend.Dto;
+package team.tripbeats.backend.domain.tripRecommand.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

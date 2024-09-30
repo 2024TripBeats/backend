@@ -1,4 +1,4 @@
-package team.tripbeats.backend.controller;
+package team.tripbeats.backend.domain.tripRecommand.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import team.tripbeats.backend.Dto.FinalInferenceResponseDto;
-import team.tripbeats.backend.Dto.InferenceResponseDto;
-import team.tripbeats.backend.Dto.RecommendRequestDto;
-import team.tripbeats.backend.service.RecommendService;
-
-import java.util.List;
+import team.tripbeats.backend.domain.tripRecommand.dto.FinalInferenceResponseDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.InferenceResponseDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.RecommendRequestDto;
+import team.tripbeats.backend.domain.tripRecommand.service.RecommendService;
 
 @RestController
 @RequestMapping("/recommend")
@@ -27,14 +25,14 @@ public class RecommendController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PostMapping("/getFinalRecommendation")
-    public ResponseEntity<FinalInferenceResponseDto> getFinalRecommendation(@RequestBody InferenceResponseDto responseDto, @RequestParam Long accountId) {
-        FinalInferenceResponseDto finalResponseDto = recommendService.getFinalRecommendation(accountId, responseDto);
+    @PostMapping("/getMusicRecommendation")
+    public ResponseEntity<FinalInferenceResponseDto> getMusicRecommendation(@RequestBody InferenceResponseDto responseDto, @RequestParam Long accountId) {
+        FinalInferenceResponseDto finalResponseDto = recommendService.getMusicRecommendation(accountId, responseDto);
         return ResponseEntity.ok(finalResponseDto);
     }
-    @PostMapping("/getAllFinalRecommendation")
-    public ResponseEntity<FinalInferenceResponseDto> getAllFinalRecommendation(@RequestBody RecommendRequestDto requestDto) {
-        FinalInferenceResponseDto responseDto = recommendService.getAllFinalRecommendation(requestDto);
+    @PostMapping("/getAllRecommendation")
+    public ResponseEntity<FinalInferenceResponseDto> getAllRecommendation(@RequestBody RecommendRequestDto requestDto) {
+        FinalInferenceResponseDto responseDto = recommendService.getAllRecommendation(requestDto);
         return ResponseEntity.ok(responseDto);
     }
 }

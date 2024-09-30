@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.tripbeats.backend.domain.tripRecommand.entity.Trip;
 
 import java.util.List;
 

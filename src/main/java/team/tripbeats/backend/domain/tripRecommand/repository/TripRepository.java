@@ -1,7 +1,7 @@
-package team.tripbeats.backend.repository;
+package team.tripbeats.backend.domain.tripRecommand.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.tripbeats.backend.entity.Trip;
+import team.tripbeats.backend.domain.tripRecommand.entity.Trip;
 
 import java.util.List;
 

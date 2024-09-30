@@ -1,14 +1,14 @@
-package team.tripbeats.backend.service;
+package team.tripbeats.backend.domain.tripRecommand.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import team.tripbeats.backend.Dto.FinalInferenceResponseDto;
-import team.tripbeats.backend.Dto.FinalRecommendationRequestDto;
-import team.tripbeats.backend.Dto.InferenceRequestDto;
-import team.tripbeats.backend.Dto.InferenceResponseDto;
-import team.tripbeats.backend.Dto.RecommendRequestDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.FinalInferenceResponseDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.FinalRecommendationRequestDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.InferenceRequestDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.InferenceResponseDto;
+import team.tripbeats.backend.domain.tripRecommand.dto.RecommendRequestDto;
 import team.tripbeats.backend.entity.Account;
 import team.tripbeats.backend.repository.AccountRepository;
 
@@ -58,7 +58,7 @@ public class RecommendService {
         return restTemplate.postForObject(inferenceUrl, requestDto, InferenceResponseDto.class);
     }
 
-    public FinalInferenceResponseDto getFinalRecommendation(Long accountId, InferenceResponseDto responseDto) {
+    public FinalInferenceResponseDto getMusicRecommendation(Long accountId, InferenceResponseDto responseDto) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid account ID: " + accountId));
 
@@ -74,8 +74,8 @@ public class RecommendService {
         return restTemplate.postForObject(finalInferenceUrl, finalRequestDto, FinalInferenceResponseDto.class);
     }
     @Transactional
-    public FinalInferenceResponseDto getAllFinalRecommendation(RecommendRequestDto recommendRequestDto) {
+    public FinalInferenceResponseDto getAllRecommendation(RecommendRequestDto recommendRequestDto) {
         InferenceResponseDto responseDto = getRecommendations(recommendRequestDto);
-        return getFinalRecommendation(recommendRequestDto.getAccountId(), responseDto);
+        return getMusicRecommendation(recommendRequestDto.getAccountId(), responseDto);
     }
 }
