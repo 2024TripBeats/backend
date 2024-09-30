@@ -1,7 +1,6 @@
 package team.tripbeats.backend.domain.FlightFare.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.tripbeats.backend.domain.FlightFare.dto.FareRequestDto;
 import team.tripbeats.backend.domain.FlightFare.dto.RoundFareRequestDto;
