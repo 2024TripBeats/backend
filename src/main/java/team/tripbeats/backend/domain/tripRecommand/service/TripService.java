@@ -28,14 +28,14 @@ public class TripService {
     }
 
 
-    public List<Long> getTripIdsByAccountId(Long accountId) {
+    public List<TripResponseDTO> getTripIdsByAccountId(Long accountId) {
         return tripRepository.findByAccountId(accountId).stream()
-                .map(Trip::getId)
+                .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public Trip saveTrip(TripRequestDTO tripRequestDTO) {
+    public void saveTrip(TripRequestDTO tripRequestDTO) {
         Account account = accountRepository.findById(tripRequestDTO.getAccountId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid account ID: " + tripRequestDTO.getAccountId()));
 
@@ -45,7 +45,7 @@ public class TripService {
                 .tripData(tripRequestDTO.getTripData())
                 .build();
 
-        return tripRepository.save(trip);
+        tripRepository.save(trip);
     }
 
     public TripResponseDTO convertToResponseDTO(Trip trip) {

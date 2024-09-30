@@ -27,8 +27,8 @@ public class TripController {
         return tripService.getTripById(tripId);
     }
 
-    @GetMapping("/account/{accountId}/trip-ids")
-    public List<Long> getTripIdsByAccountId(@PathVariable Long accountId) {
+    @GetMapping("/account/{accountId}/all")
+    public List<TripResponseDTO> getTripIdsByAccountId(@PathVariable Long accountId) {
         return tripService.getTripIdsByAccountId(accountId);
     }
 }
