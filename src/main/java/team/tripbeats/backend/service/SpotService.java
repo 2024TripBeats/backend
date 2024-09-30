@@ -5,11 +5,7 @@ import com.opencsv.exceptions.CsvValidationException;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import team.tripbeats.backend.Dto.CurationDto;
-import team.tripbeats.backend.Dto.MusicDto;
 import team.tripbeats.backend.Dto.SpotDto;
 import team.tripbeats.backend.entity.Spot;
 import team.tripbeats.backend.repository.SpotRepository;
@@ -18,10 +14,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

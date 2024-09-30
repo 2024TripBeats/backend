@@ -61,7 +61,4 @@ public class Spot {
 
     @Column(name = "image_url", length = 4096)
     private String imageUrl;
-
-    @OneToMany(mappedBy = "spot", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TripDaySpot> tripDaySpots;
 }
