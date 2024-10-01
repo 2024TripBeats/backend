@@ -23,8 +23,7 @@ import java.util.List;
 public class Spot {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "visit_area_nm")
     private String visitAreaNm;
@@ -33,7 +32,7 @@ public class Spot {
     private String radNmAddr;
 
     @Column(name = "visit_area_type_cd")
-    private int visitAreaTypeCd;
+    private String visitAreaTypeCd;
 
     @Column(name = "hashtags")
     private String hashtags;
@@ -44,21 +43,15 @@ public class Spot {
     @Column(name = "contact")
     private String contact;
 
-    @Column(name = "parking")
-    private boolean parking;
+    @Column(name = "info")
+    private String info;
 
-    @Column(name = "pet_access")
-    private boolean petAccess;
+    @Column(name = "fare", columnDefinition = "TEXT")
+    private String fare;
 
-    @Column(name = "description", length = 1024)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "latitude")
-    private double latitude;
-
-    @Column(name = "longitude")
-    private double longitude;
-
-    @Column(name = "image_url", length = 4096)
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 }

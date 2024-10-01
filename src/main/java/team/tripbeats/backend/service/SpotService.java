@@ -31,23 +31,22 @@ public class SpotService {
             List<Spot> spots = new ArrayList<>();
             reader.readNext(); // Skip header line
             while ((line = reader.readNext()) != null) {
-                if (line.length < 12) {
+                if (line.length < 10) {
                     continue; // Skip invalid lines
                 }
 
                 Spot spot = new Spot();
-                spot.setVisitAreaNm(line[0].trim());
-                spot.setRadNmAddr(line[1].trim());
-                spot.setVisitAreaTypeCd(Integer.parseInt(line[2].trim()));
-                spot.setHashtags(line[3].trim());
-                spot.setTime(line[4].trim());
-                spot.setContact(line[5].trim());
-                spot.setParking(line[6].trim().equals("가능"));
-                spot.setPetAccess(line[7].trim().equals("불가능"));
-                spot.setDescription(line[8].trim());
-                spot.setLatitude(Double.parseDouble(line[9].trim()));
-                spot.setLongitude(Double.parseDouble(line[10].trim()));
-                spot.setImageUrl(line[11].trim().length() > 2048 ? line[11].trim().substring(0, 2048) : line[11].trim());
+                spot.setId(line[0].trim());
+                spot.setVisitAreaNm(line[1].trim());
+                spot.setRadNmAddr(line[2].trim());
+                spot.setVisitAreaTypeCd(line[3].trim());
+                spot.setHashtags(line[4].trim());
+                spot.setTime(line[5].trim());
+                spot.setContact(line[6].trim());
+                spot.setInfo(line[7].trim());
+                spot.setFare(line[8].trim());
+                spot.setDescription(line[9].trim());
+                spot.setImageUrl(line[10].trim());
 
                 spots.add(spot);
             }
@@ -70,18 +69,16 @@ public class SpotService {
 
     public SpotDto convertSpotToDto(Spot spot) {
         return SpotDto.builder()
-                .id(spot.getId())
+                .spotId(spot.getId())
                 .visitAreaNm(spot.getVisitAreaNm())
                 .radNmAddr(spot.getRadNmAddr())
                 .visitAreaTypeCd(spot.getVisitAreaTypeCd())
                 .hashtags(spot.getHashtags())
                 .time(spot.getTime())
                 .contact(spot.getContact())
-                .parking(spot.isParking())
-                .petAccess(spot.isPetAccess())
+                .info(spot.getInfo())
+                .fare(spot.getFare())
                 .description(spot.getDescription())
-                .latitude(spot.getLatitude())
-                .longitude(spot.getLongitude())
                 .imageUrl(spot.getImageUrl())
                 .build();
     }
