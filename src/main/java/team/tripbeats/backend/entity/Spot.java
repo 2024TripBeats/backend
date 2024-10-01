@@ -34,7 +34,7 @@ public class Spot {
     @Column(name = "visit_area_type_cd")
     private String visitAreaTypeCd;
 
-    @Column(name = "hashtags")
+    @Column(name = "hashtags", columnDefinition = "TEXT")
     private String hashtags;
 
     @Column(name = "time")
@@ -43,7 +43,7 @@ public class Spot {
     @Column(name = "contact")
     private String contact;
 
-    @Column(name = "info")
+    @Column(name = "info", columnDefinition = "TEXT")
     private String info;
 
     @Column(name = "fare", columnDefinition = "TEXT")
