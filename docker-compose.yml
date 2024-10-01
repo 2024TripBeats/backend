@@ -21,7 +21,7 @@ services:
     container_name: tripBeats-app-local
     restart: always
     ports:
-      - "8080:8080"
+      - "8888:8888"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tripBeatsMain
       SPRING_DATASOURCE_USERNAME: root

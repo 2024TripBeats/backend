@@ -8,8 +8,8 @@ WORKDIR /app
 COPY build/libs/TripBeatsBackend-0.0.1-SNAPSHOT.jar /app/your-application.jar
 
 # 4. CSV 파일을 resources 디렉토리로 복사
-COPY src/main/resources/flight_fare.csv /app/resources/flight_fare.csv
-COPY src/main/resources/place.csv /app/resources/place.csv
+COPY src/main/resources/flight_fare.csv /app/src/main/resources/flight_fare.csv
+COPY src/main/resources/place.csv /app/src/main/resources/place.csv
 
 # 5. JAR 파일 실행
 ENTRYPOINT ["java", "-jar", "/app/your-application.jar"]
