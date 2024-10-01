@@ -5,6 +5,6 @@ import team.tripbeats.backend.entity.Spot;
 
 import java.util.Optional;
 
-public interface SpotRepository extends JpaRepository<Spot, Long> {
+public interface SpotRepository extends JpaRepository<Spot, String> {
     Optional<Spot> findByVisitAreaNm(String visitAreaNm);
 }

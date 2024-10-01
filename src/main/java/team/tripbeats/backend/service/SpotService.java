@@ -82,4 +82,8 @@ public class SpotService {
                 .imageUrl(spot.getImageUrl())
                 .build();
     }
+
+    public Spot getSpotById(String placeId) {
+        return spotRepository.findById(placeId).orElse(null);
+    }
 }
