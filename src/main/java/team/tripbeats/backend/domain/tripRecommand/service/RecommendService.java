@@ -71,7 +71,6 @@ public class RecommendService {
                 .user_openness(account.getOpenness()) // 유저 openness
                 .start_time(recommendRequestDto.getDepartureTime()) // 설문 departureTime
                 .build();
-        System.out.println(requestDto);
 
         // 추천 API 호출
         String inferenceUrl = "http://localhost:8001/recommend";
