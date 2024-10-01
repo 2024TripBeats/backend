@@ -12,25 +12,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InferenceResponseDto {
-    private List<DayRecommendationDto> recommendations;
+    private List<CandidateRecommendationDto> recommendations;  // candidates를 리스트로 수정
 }
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class DayRecommendationDto {
-    private int dayNumber;
-    private List<RecommendationCandidateDto> candidates;
+class CandidateRecommendationDto {
+    private int candidates;  // candidates 필드 추가
+    private List<DayItineraryDto> itinerary;  // DayItineraryDto로 변경
 }
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-class RecommendationCandidateDto {
-    private List<PlaceDto> itinerary;
-    private List<TravelSegmentDto> travelSegments;
+class DayItineraryDto {
+    private int dayNumber;  // dayNumber 추가
+    private List<PlaceDto> places;  // places 리스트로 수정
+    private List<TravelSegmentDto> travelSegments;  // travelSegments 추가
 }
 
 @Data
@@ -40,7 +41,10 @@ class RecommendationCandidateDto {
 class PlaceDto {
     private String placeId;
     private String placeName;
+    private String category;  // category 필드 추가
     private int duration;
+    private int order;  // order 필드 추가
+    private int price;  // price 필드 추가
 }
 
 @Data

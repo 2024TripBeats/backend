@@ -11,10 +11,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FinalRecommendationRequestDto {
-    private List<CandidateRecommendationDto> recommendations;
-    private List<String> musicGenres;
-    private int genreOpenness;
-    private List<String> musicTags;
-    private int tagOpenness;
+public class AccPreferDto {
+    private List<String> accomodation;
+    private String requiredAccomText;  // 스네이크 케이스로 수정
+    private String accompriority;
 }
