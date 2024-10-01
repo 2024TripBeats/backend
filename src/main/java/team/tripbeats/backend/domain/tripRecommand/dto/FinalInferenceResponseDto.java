@@ -1,5 +1,6 @@
 package team.tripbeats.backend.domain.tripRecommand.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,12 +45,15 @@ class FinalPlaceDto {
     private String category;  // 카테고리 필드 추가 (식당, 박물관 등)
     private int duration;
     private int order;  // 방문 순서
+    @JsonProperty("new_order")
     private int newOrder;  // 새로운 순서 필드 추가
     private String timeOfDay;  // 시간대 (아침, 오후, 밤 등)
+    @JsonProperty("music_bool")
     private boolean musicBool;  // 음악 여부
     private String musicId;  // 음악 ID
     private String musicName;  // 음악 이름
     private String musicArtist;  // 음악 아티스트 이름
+    @JsonProperty("spotify_id")
     private String spotifyId;  // Spotify ID
     private int price;  // 장소의 가격 필드 추가
 }
